@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './App.css';
-import Validation from './Validation/Validation';
+import Validation from './ValidationComponent/Validation';
+import Char from './CharComponent/Char';
 
 class App extends Component {
 
@@ -11,17 +12,34 @@ class App extends Component {
 
   lengthHandler = (event) => {
     // console.log(event.target.value.length)
-    let text = {...this.state.textLength}
-    text = event.target.value.length
-    this.setState({textLength: text})
+    let textLength = {...this.state.textLength}
+    let text = {...this.state.text}
+    textLength = event.target.value.length
+    text = event.target.value
+    this.setState({text: text, textLength: textLength})
+  }
+
+  deleteHandler = (index) => {
+    let textArr = [...this.state.text.split('')]
+    textArr.splice(index, 1);
+    let newText = textArr.join('')
+    
+    this.setState({text: newText})
   }
 
   render() {
+
+    let textArr =  this.state.text.split('')
+    let charBlock = textArr.map((char, i) => {
+      return <Char key={i} char={char} click={() => this.deleteHandler(i)}/>
+    });
+
     return (
       <div className="App">
-        <input type='text' onChange={(event) => this.lengthHandler(event)}/>
+        <input type='text' onChange={(event) => this.lengthHandler(event)} />
         <p>{this.state.textLength}</p>
-        <Validation length={this.state.textLength}/>
+        <Validation length={this.state.textLength} />
+       {charBlock}
       </div>
     );
   }
