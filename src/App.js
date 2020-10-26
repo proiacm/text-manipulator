@@ -25,8 +25,7 @@ class App extends Component {
 
   render() {
 
-    let textArr =  this.state.text.split('')
-    let charBlock = textArr.map((char, i) => {
+    let charBlock = this.state.text.split('').map((char, i) => {
       return <Char key={i} char={char} click={() => this.deleteHandler(i)}/>
     });
 
