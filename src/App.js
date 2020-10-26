@@ -6,16 +6,13 @@ import Char from './CharComponent/Char';
 class App extends Component {
 
   state = {
-    text: '',
-    textLength: ''
+    text: ''
   }
 
   lengthHandler = (event) => {
-    let textLength = {...this.state.textLength}
     let text = {...this.state.text}
-    textLength = event.target.value.length
     text = event.target.value
-    this.setState({text: text, textLength: textLength})
+    this.setState({text: text})
   }
 
   deleteHandler = (index) => {
@@ -36,8 +33,8 @@ class App extends Component {
     return (
       <div className="App">
         <input type='text' onChange={(event) => this.lengthHandler(event)} value={this.state.text}/>
-        <p>{this.state.textLength}</p>
-        <Validation length={this.state.textLength} />
+        <p>{this.state.text}</p>
+        <Validation length={this.state.text.length} />
        {charBlock}
       </div>
     );
